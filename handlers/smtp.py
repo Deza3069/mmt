@@ -1,7 +1,7 @@
 # handlers/smtp.py
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from database.mongo import is_sudo, add_smtp, remove_smtp, get_smtps
+from database.mongo import is_sudo, add_smtp, delete_smtp, get_user_smtps
 
 @Client.on_message(filters.command("addsmtp") & filters.private)
 async def add_smtp_cmd(client: Client, message: Message):
