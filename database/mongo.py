@@ -53,6 +53,17 @@ def delete_smtp(user_id: int, smtp_id: str):
 def count_smtps(user_id: int):
     return smtps.count_documents({"user_id": user_id})
 
+async def get_smtp_by_username(user_id: int, smtp_username: str):
+    user_data = await smtp_collection.find_one({"user_id": user_id})
+    if not user_data:
+        return None
+
+    for smtp in user_data.get("smtps", []):
+        if smtp.get("username") == smtp_username:
+            return smtp
+    return None
+
+
 # ─── Mail Log / Record ──────────────────────────────────
 
 def save_mail_record(user_id: int, smtp_id: str, recipients: list, subject: str, content: str):
