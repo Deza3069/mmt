@@ -8,7 +8,7 @@ from pyrogram.types import (
     InlineKeyboardButton,
     CallbackQuery,
 )
-from database.mongo import is_sudo, get_smtps, get_smtp_by_username
+from database.mongo import is_sudo, get_user_smtps, get_smtp_by_username
 from config import LOG_CHANNEL
 
 SENDMAIL_STATE = {}
