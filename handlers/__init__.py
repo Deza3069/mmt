@@ -1,4 +1,5 @@
-from . import sudo, smtp, sendmail, sendmmail, common
-
-def register_handlers(app):
-    pass  # All handlers are imported above to register with the bot
+from .sudo import *
+from .smtp import *
+from .sendmail import *
+from .sendmmail import *
+from .common import *
