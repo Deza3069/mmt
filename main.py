@@ -1,6 +1,6 @@
 # main.py
 
-from aizen import app  # Shared Pyrogram Client instance
+from app import app  # Shared Pyrogram Client instance
 import handlers.sendmail
 import handlers.sudo
 import handlers.smtp
