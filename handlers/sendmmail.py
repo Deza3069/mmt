@@ -3,7 +3,7 @@ import smtplib
 from email.mime.text import MIMEText
 from pyrogram import Client, filters
 from pyrogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
-from database.mongo import is_sudo, get_smtps, get_smtp_by_username
+from database.mongo import is_sudo, get_user_smtps, get_smtp_by_username
 from config import LOG_CHANNEL
 
 SENDMMAIL_STATE = {}
