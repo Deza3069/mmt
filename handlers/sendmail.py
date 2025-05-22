@@ -13,7 +13,7 @@ from config import LOG_CHANNEL
 
 SENDMAIL_STATE = {}
 
-@Client.on_message(filters.command("sendmail") & filters.private)
+@app.on_message(filters.command("sendmail") & filters.private)
 async def sendmail_entry(client: Client, message: Message):
     user_id = message.from_user.id
     if not is_sudo(user_id):
@@ -29,14 +29,14 @@ async def sendmail_entry(client: Client, message: Message):
     await message.reply("Choose an SMTP to send mail from:", reply_markup=InlineKeyboardMarkup(buttons))
     SENDMAIL_STATE[user_id] = {"step": "awaiting_smtp"}
 
-@Client.on_callback_query(filters.regex(r"sendmail_smtp:(.+)"))
+@app.on_callback_query(filters.regex(r"sendmail_smtp:(.+)"))
 async def sendmail_choose_smtp(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
     smtp_username = callback_query.data.split(":")[1]
     SENDMAIL_STATE[user_id] = {"smtp_username": smtp_username, "step": "awaiting_target"}
     await callback_query.message.edit("Send the recipient's email address:")
 
-@Client.on_message(filters.private & filters.text)
+@app.on_message(filters.private & filters.text)
 async def sendmail_steps(client: Client, message: Message):
     user_id = message.from_user.id
     if user_id not in SENDMAIL_STATE:
