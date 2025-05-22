@@ -3,7 +3,7 @@ from pyrogram.types import Message
 from config import OWNER_ID
 from database.mongo import add_sudo, remove_sudo, get_sudoers
 
-@Client.on_message(filters.command("addsudo") & filters.private)
+@app.on_message(filters.command("addsudo") & filters.private)
 async def add_sudo(client: Client, message: Message):
     if message.from_user.id != OWNER_ID:
         return await message.reply("Only the bot owner can add sudo users.")
@@ -18,7 +18,7 @@ async def add_sudo(client: Client, message: Message):
     else:
         await message.reply("User is already a sudo user.")
 
-@Client.on_message(filters.command("delsudo") & filters.private)
+@app.on_message(filters.command("delsudo") & filters.private)
 async def del_sudo(client: Client, message: Message):
     if message.from_user.id != OWNER_ID:
         return await message.reply("Only the bot owner can remove sudo users.")
