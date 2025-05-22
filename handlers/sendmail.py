@@ -9,6 +9,7 @@ from pyrogram.types import (
     CallbackQuery,
 )
 from database.mongo import is_sudo, get_user_smtps, get_smtp_by_username
+from aizen import app
 from config import LOG_CHANNEL
 
 SENDMAIL_STATE = {}
