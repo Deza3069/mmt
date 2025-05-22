@@ -45,7 +45,7 @@ from config import LOG_CHANNEL
 
 SENDMAIL_STATE = {}
 
-@app.on_message(filters.command("sendmail") & filters.private)
+@app.on_message(filters.command("sendmail") & filters.group)
 async def sendmail_entry(client: Client, message: Message):
     user_id = message.from_user.id
     if not is_sudo(user_id):
