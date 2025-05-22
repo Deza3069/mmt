@@ -8,7 +8,7 @@ from config import LOG_CHANNEL
 
 SENDMMAIL_STATE = {}
 
-@Client.on_callback_query(filters.regex(r"mmail_select:(.+)"))
+@app.on_callback_query(filters.regex(r"mmail_select:(.+)"))
 async def mmail_select_handler(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
     if user_id not in SENDMMAIL_STATE:
@@ -30,7 +30,7 @@ async def mmail_select_handler(client: Client, callback_query: CallbackQuery):
     ])
     await callback_query.message.edit_reply_markup(reply_markup=InlineKeyboardMarkup(buttons))
 
-@Client.on_callback_query(filters.regex("mmail_confirm"))
+@app.on_callback_query(filters.regex("mmail_confirm"))
 async def mmail_confirm_handler(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
     state = SENDMMAIL_STATE[user_id]
@@ -39,12 +39,12 @@ async def mmail_confirm_handler(client: Client, callback_query: CallbackQuery):
     state["step"] = "awaiting_target"
     await callback_query.message.edit("Send the recipient's email address:")
 
-@Client.on_callback_query(filters.regex("mmail_abort"))
+@app.on_callback_query(filters.regex("mmail_abort"))
 async def mmail_abort_handler(client: Client, callback_query: CallbackQuery):
     SENDMMAIL_STATE.pop(callback_query.from_user.id, None)
     await callback_query.message.edit("Aborted mass mail process.")
 
-@Client.on_message(filters.command("sendmmail") & filters.private)
+@app.on_message(filters.command("sendmmail") & filters.private)
 async def sendmmail_entry(client: Client, message: Message):
     user_id = message.from_user.id
     if not is_sudo(user_id):
@@ -63,7 +63,7 @@ async def sendmmail_entry(client: Client, message: Message):
     SENDMMAIL_STATE[user_id] = {"step": "selecting_smtps", "smtps": []}
     await message.reply("Select SMTPs for sending:", reply_markup=InlineKeyboardMarkup(buttons))
 
-@Client.on_message(filters.private & filters.text)
+@app.on_message(filters.private & filters.text)
 async def mmail_steps(client: Client, message: Message):
     user_id = message.from_user.id
     if user_id not in SENDMMAIL_STATE:
