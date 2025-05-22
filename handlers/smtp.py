@@ -1,4 +1,4 @@
-# handlers/smtp.py
+from aizen import app
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from database.mongo import is_sudo, add_smtp, delete_smtp, get_user_smtps
