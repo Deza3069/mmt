@@ -1,6 +1,11 @@
-# start
-from aizen import app
-import handlers  # This ensures all handlers are imported and registered
+# main.py
+
+from app import app  # Shared Pyrogram Client instance
+import handlers.sendmail
+import handlers.sudo
+import handlers.smtp
+import handlers.sendmmail
+import handlers.common
 
 from pyrogram import idle
 import asyncio
@@ -15,8 +20,8 @@ async def notify_startup():
 async def main():
     await app.start()
     await notify_startup()
-    print("Bot is running...")
-    await idle()
+    print("✅ Bot is running...")
+    await idle()  # Keeps the bot alive
     await app.stop()
 
 if __name__ == "__main__":
