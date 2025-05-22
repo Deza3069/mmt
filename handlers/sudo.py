@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from config import OWNER_ID
-from database.mongo import add_sudo_user, remove_sudo_user, get_sudo_users
+from database.mongo import add_sudo, remove_sudo, get_sudoers
 
 @Client.on_message(filters.command("addsudo") & filters.private)
 async def add_sudo(client: Client, message: Message):
