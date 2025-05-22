@@ -3,7 +3,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from database.mongo import is_sudo, add_smtp, delete_smtp, get_user_smtps
 
-@Client.on_message(filters.command("addsmtp") & filters.private)
+@app.on_message(filters.command("addsmtp") & filters.private)
 async def add_smtp_cmd(client: Client, message: Message):
     user_id = message.from_user.id
     if not is_sudo(user_id):
@@ -23,7 +23,7 @@ async def add_smtp_cmd(client: Client, message: Message):
     except Exception as e:
         await message.reply(f"Error: {e}")
 
-@Client.on_message(filters.command("delsmtp") & filters.private)
+@app.on_message(filters.command("delsmtp") & filters.private)
 async def remove_smtp_cmd(client: Client, message: Message):
     user_id = message.from_user.id
     if not is_sudo(user_id):
